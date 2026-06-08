@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.header {
+  padding: 20px 32px;
+  background-color: #1f2937;
+  color: white;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #d1d5db;
+}
+
+.main-content {
+  padding: 24px;
+}
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.map-section {
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.map {
+  height: 600px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.details-panel {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  min-height: 300px;
+}
+
+.details-panel h2 {
+  margin-top: 0;
+  color: #111827;
+}
+
+.muted {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.summary-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  background-color: #f9fafb;
+}
+
+.summary-card span {
+  display: block;
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.summary-card strong {
+  font-size: 26px;
+  color: #111827;
+}
+
+.empty-panel {
+  color: #6b7280;
+}
+
+.spots-section {
+  margin-top: 28px;
+}
+
+.spots-section h3 {
+  margin-bottom: 14px;
+  color: #111827;
+}
+
+.spots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.parking-spot {
+  border-radius: 12px;
+  padding: 12px;
+  color: white;
+  min-height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.parking-spot strong {
+  font-size: 18px;
+}
+
+.parking-spot span {
+  font-size: 14px;
+}
+
+.parking-spot small {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.spot-free {
+  background-color: #16a34a;
+}
+
+.spot-occupied {
+  background-color: #dc2626;
+}
+
+.spot-offline {
+  background-color: #6b7280;
+}
+
+@media (max-width: 900px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    height: 450px;
+  }
+}
+
+.connection-status {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #9ca3af;
+}

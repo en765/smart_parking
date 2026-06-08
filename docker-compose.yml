@@ -1,0 +1,74 @@
+services:
+  mqtt:
+    image: eclipse-mosquitto:2
+    pull_policy: always
+    volumes:
+      - ./docker/mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./docker/mqtt/passwd:/mosquitto/config/passwd
+
+  backend:
+    image: matanbudimir/intstv:backend
+    pull_policy: always
+    volumes:
+      - ./docker/db/smartparking.db:/app/smartparking.db
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  frontend:
+    image: matanbudimir/intstv:frontend
+    pull_policy: always
+    depends_on:
+      - backend
+
+  haproxy:
+    image: haproxy:alpine
+    pull_policy: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - frontend
+
+  ngrok:
+    image: ngrok/ngrok
+    pull_policy: always
+    command: http haproxy:80
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040"
+    depends_on:
+      - haproxy
+
+  simulation:
+    image: matanbudimir/intstv:simulation
+    pull_policy: always
+    environment:
+      - MQTT_BROKER
+      - MQTT_USERNAME
+      - MQTT_PASSWORD
+      - BACKEND_URL
+    depends_on:
+      mqtt:
+        condition: service_started
+      backend:
+        condition: service_healthy
+
+  gateway:
+    image: matanbudimir/intstv:gateway
+    pull_policy: always
+    environment:
+      - MQTT_INPUT_BROKER
+      - MQTT_INPUT_USERNAME
+      - MQTT_INPUT_PASSWORD
+      - MQTT_OUTPUT_BROKER
+      - MQTT_OUTPUT_USERNAME
+      - MQTT_OUTPUT_PASSWORD
+      - TOPIC_OUTPUT
+    depends_on:
+      - mqtt

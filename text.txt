@@ -1,0 +1,23 @@
+znacenja:
+
+zeleno = slobodno
+crveno = zauzeto
+sivo = offline
+A1 = stvarni senzor
+A2–A12 = simulacija
+
+BAZA:
+
+parking.id je npr. "parking_demo" ili kasnije "parking_fer".
+
+parking_spot.parking_id je strani ključ koji kaže kojem parkingu pripada mjesto.
+
+parking_spot.label je oznaka mjesta, npr. "A1", "A2".
+
+seed.js samo puni bazu s mock podatcima 
+
+backend:
+1. čita početno stanje iz baze
+2. prima promjene parking mjesta
+3. sprema promjene u bazu
+4. šalje WebSocket poruku frontendu
